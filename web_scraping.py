@@ -28,9 +28,11 @@ time.sleep(5)
   
 html = driver.page_source
 
+driver.close()
+
 soup = BeautifulSoup(html, "html.parser")
 
-#%% 
+#%% Transform Buienradar into proper dataframe
 
 all_tables = soup.find_all('div', {'class': 'expanded-box'})
 
@@ -46,11 +48,25 @@ for table in all_tables:
 
 results = pd.DataFrame(all_results, columns = ['Scrapped_time_stamp','Day', 'Time', 'Temp'])
 
-new_date = []
+results['Day'] = results['Day'].map(h.format_dutch_date)
 
-#To do, fix the function that is supposed to clean the date, see the helper file
-for dutch_day in results['Day']:
-    print(dutch_day.find('Maandag'))
+day_plus_year = []
+
+for day in results['Day']:
+    
+    if day.find('January') != -1 and datetime.datetime.now().month != 1:
+        day = str(day) + ' ' + str(datetime.datetime.now().year + 1)
+    else:
+        day = str(day) + ' ' + str(datetime.datetime.now().year)
+        
+    day_plus_year.append(datetime.datetime.strptime(day, '%A %d %B %Y'))
+    
+print(day_plus_year)
+
+results['Day'] = day_plus_year
+
+
+
 
 
     

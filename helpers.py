@@ -8,12 +8,12 @@ Created on Wed Mar  8 12:18:03 2023
 #%% Function made to take as input a date with Dutch names and spit it as an english formatted date
 def replace_with_dict(string_to_format: str, dict_to_use: dict) -> str:
     
+    transformed_string = string_to_format
+    
     for dutch_word, english_word in dict_to_use.items():
-        
-        transformed_string = ''
                 
         if string_to_format.find(dutch_word) >= 0:
-            transformed_string = string_to_format.replace(dutch_word,english_word)
+            transformed_string = string_to_format.title().replace(dutch_word.title(),english_word.title()) #title makes sure that we have a match with the dictionnaries
         else:
             continue
     
