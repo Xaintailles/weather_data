@@ -3,6 +3,8 @@
 Created on Fri Jul 30 16:51:18 2021
 
 @author: Gebruiker
+
+https://developer.dataplatform.knmi.nl/get-started
 """
 
 import logging
@@ -11,6 +13,11 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
+import os
+import json
+
+with open(r'C:\Users\Calixte\Desktop\Secrets\secrets.json') as f:
+    d_secrets = json.load(f)['KMI_API']
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -22,7 +29,7 @@ api_version = "v1"
 
 def main():
     # Parameters
-    api_key = "<API_KEY>"
+    api_key = d_secrets['KEY']
     dataset_name = "Actuele10mindataKNMIstations"
     dataset_version = "2"
     max_keys = "10"
