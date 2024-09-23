@@ -13,7 +13,7 @@ import time
 import pandas as pd
 import datetime
 import locale
-import helpers as h
+import weather_data.helpers.helpers as h
 
 #%% Creating the soup
 #url of the page we want to scrape
